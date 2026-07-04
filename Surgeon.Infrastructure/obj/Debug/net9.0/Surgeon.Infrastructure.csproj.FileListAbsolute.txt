@@ -1,0 +1,17 @@
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Infrastructure\bin\Debug\net9.0\Surgeon.Infrastructure.deps.json
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Infrastructure\bin\Debug\net9.0\Surgeon.Infrastructure.dll
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Infrastructure\bin\Debug\net9.0\Surgeon.Infrastructure.pdb
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Infrastructure\bin\Debug\net9.0\Surgeon.Application.dll
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Infrastructure\bin\Debug\net9.0\Surgeon.Domain.dll
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Infrastructure\bin\Debug\net9.0\Surgeon.Application.pdb
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Infrastructure\bin\Debug\net9.0\Surgeon.Domain.pdb
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Infrastructure\obj\Debug\net9.0\Surgeon.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Infrastructure\obj\Debug\net9.0\Surgeon.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Infrastructure\obj\Debug\net9.0\Surgeon.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Infrastructure\obj\Debug\net9.0\Surgeon.Infrastructure.AssemblyInfo.cs
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Infrastructure\obj\Debug\net9.0\Surgeon.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Infrastructure\obj\Debug\net9.0\Surgeon..CC8F2AAD.Up2Date
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Infrastructure\obj\Debug\net9.0\Surgeon.Infrastructure.dll
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Infrastructure\obj\Debug\net9.0\refint\Surgeon.Infrastructure.dll
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Infrastructure\obj\Debug\net9.0\Surgeon.Infrastructure.pdb
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Infrastructure\obj\Debug\net9.0\ref\Surgeon.Infrastructure.dll

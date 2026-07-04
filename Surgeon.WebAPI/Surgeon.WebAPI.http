@@ -1,0 +1,6 @@
+@Surgeon.WebAPI_HostAddress = http://localhost:5029
+
+GET {{Surgeon.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

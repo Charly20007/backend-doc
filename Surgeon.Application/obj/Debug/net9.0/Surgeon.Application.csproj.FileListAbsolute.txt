@@ -1,0 +1,15 @@
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Application\bin\Debug\net9.0\Surgeon.Application.deps.json
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Application\bin\Debug\net9.0\Surgeon.Application.dll
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Application\bin\Debug\net9.0\Surgeon.Application.pdb
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Application\bin\Debug\net9.0\Surgeon.Domain.dll
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Application\bin\Debug\net9.0\Surgeon.Domain.pdb
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Application\obj\Debug\net9.0\Surgeon.Application.csproj.AssemblyReference.cache
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Application\obj\Debug\net9.0\Surgeon.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Application\obj\Debug\net9.0\Surgeon.Application.AssemblyInfoInputs.cache
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Application\obj\Debug\net9.0\Surgeon.Application.AssemblyInfo.cs
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Application\obj\Debug\net9.0\Surgeon.Application.csproj.CoreCompileInputs.cache
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Application\obj\Debug\net9.0\Surgeon..BE704D2F.Up2Date
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Application\obj\Debug\net9.0\Surgeon.Application.dll
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Application\obj\Debug\net9.0\refint\Surgeon.Application.dll
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Application\obj\Debug\net9.0\Surgeon.Application.pdb
+C:\Users\carlos.marcos\Documents\proyectoDoc\backend\Surgeon.Application\obj\Debug\net9.0\ref\Surgeon.Application.dll
