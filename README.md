@@ -4,19 +4,29 @@ API .NET de la web del Dr. Juan Carlos Marcos Enriquez: contenido público, SEO 
 
 ## Puesta en marcha
 
-1. **SQL Server.** En macOS no existe LocalDB; se puede usar Docker:
+1. **PostgreSQL** (en Docker):
    ```bash
-   docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=<una-contraseña-segura>" -p 1433:1433 --name surgeon-sql -d mcr.microsoft.com/mssql/server:2022-latest
+   docker run -d --name surgeon-pg -e POSTGRES_USER=surgeon -e POSTGRES_PASSWORD=<contraseña> -e POSTGRES_DB=surgeon -p 5432:5432 -v surgeon-pg-data:/var/lib/postgresql/data postgres:16-alpine
    ```
-   y crear `Surgeon.WebAPI/appsettings.Development.local.json` (no se sube a git) copiando
-   `appsettings.Development.local.example.json` y completando la conexión, la clave JWT, el admin inicial y el secreto de revalidación:
-   ```json
-   "ConnectionStrings": { "DefaultConnection": "Server=localhost,1433;Database=SurgeonDb;User Id=sa;Password=<...>;TrustServerCertificate=True" }
-   ```
-2. **Scripts** en `Surgeon.Infrastructure/Persistence/TablesAndData/`:
-   - Base nueva: `00_Cleanup.sql` → `01_Tabla_Maestra.sql` → `02_Carga_Inicial.sql` → `03_Fase1_SEO.sql`
-   - Base existente: solo `03_Fase1_SEO.sql` (es idempotente).
-3. **Ejecutar:** `docker start surgeon-sql` y luego `dotnet run --project Surgeon.WebAPI` → http://localhost:5029/swagger
+2. **Configuración local:** copie `Surgeon.WebAPI/appsettings.Development.local.example.json` como
+   `appsettings.Development.local.json` (no se sube a git) y complete la conexión, la clave JWT,
+   el administrador inicial y el secreto de revalidación.
+3. **Ejecutar:** `docker start surgeon-pg` y luego, en `Surgeon.WebAPI`, `dotnet run` → http://localhost:5029/swagger
+   - Al arrancar, la API **crea o actualiza las tablas sola** (migraciones de Entity Framework).
+4. **Contenido inicial** (solo en una base nueva): `docker exec -i surgeon-pg psql -U surgeon -d surgeon < Surgeon.Infrastructure/Persistence/Datos/datos_iniciales.sql`
+
+La estructura de la base está documentada en [BASE_DE_DATOS.md](BASE_DE_DATOS.md) y la organización del código (Clean Architecture) en [ARQUITECTURA.md](ARQUITECTURA.md).
+
+### Cambios en la estructura de la base
+
+Se hacen con migraciones de EF Core (no con scripts a mano):
+
+```bash
+dotnet tool restore
+dotnet ef migrations add NombreDelCambio --project Surgeon.Infrastructure --startup-project Surgeon.WebAPI --output-dir Persistence/Migraciones
+```
+
+La API aplica la migración nueva la próxima vez que arranca.
 
 ## Acceso al CMS
 

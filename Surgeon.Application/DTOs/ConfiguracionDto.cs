@@ -28,6 +28,10 @@ public class ConfiguracionSitioDto
     [Required][StringLength(2, MinimumLength = 2)] public string Pais { get; set; } = "PE";
     [MaxLength(1000)][Url] public string? GoogleMapsUrl { get; set; }
 
+    [MaxLength(300)] public string? DescripcionPie { get; set; }
+    public bool MostrarEmergencias { get; set; }
+    [MaxLength(100)] public string? TextoEmergencias { get; set; }
+
     [MaxLength(300)][Url] public string? FacebookUrl { get; set; }
     [MaxLength(300)][Url] public string? InstagramUrl { get; set; }
     [MaxLength(300)][Url] public string? TikTokUrl { get; set; }

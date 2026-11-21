@@ -29,6 +29,14 @@ public class ConfiguracionSitio : BaseEntity
     public string Pais { get; set; } = "PE";
     public string? GoogleMapsUrl { get; set; }
 
+    // Pie de página
+    /// <summary>Frase corta bajo el nombre del doctor en el pie de página.</summary>
+    public string? DescripcionPie { get; set; }
+    /// <summary>Muestra la línea de emergencias en el pie de página y en contacto.</summary>
+    public bool MostrarEmergencias { get; set; } = false;
+    /// <summary>Ej.: "Emergencias quirúrgicas: 24 horas".</summary>
+    public string? TextoEmergencias { get; set; }
+
     // Redes sociales
     public string? FacebookUrl { get; set; }
     public string? InstagramUrl { get; set; }

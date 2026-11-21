@@ -4,12 +4,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
+using Surgeon.Application;
 using Surgeon.Application.Interfaces;
-using Surgeon.Application.Services;
 using Surgeon.Application.Settings;
+using Surgeon.Infrastructure;
 using Surgeon.Infrastructure.Persistence;
-using Surgeon.Infrastructure.Repositories;
-using Surgeon.Infrastructure.Security;
 using Surgeon.WebAPI.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,29 +30,16 @@ builder.Services.AddCors(options =>
     });
 });
 
-// ---------- Base de datos SQL Server ----------
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? "Server=(localdb)\\mssqllocaldb;Database=SurgeonDb;Trusted_Connection=True;MultipleActiveResultSets=true";
+// ---------- Capas de Clean Architecture ----------
+// Application: casos de uso · Infrastructure: PostgreSQL, repositorios, seguridad · WebAPI: HTTP
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
 
-builder.Services.AddDbContext<SurgeonDbContext>(options =>
-    options.UseSqlServer(connectionString));
-
-// ---------- Inyección de dependencias (Clean Architecture) ----------
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<RedireccionesService>();
-builder.Services.AddScoped<AdminSeeder>();
-builder.Services.AddSingleton<IPasswordHasher, BCryptPasswordHasher>();
-builder.Services.AddSingleton<ITokenService, JwtTokenService>();
-
-// ---------- Refresco de la web pública al guardar en el CMS ----------
-builder.Services.Configure<WebSettings>(builder.Configuration.GetSection(WebSettings.Seccion));
-builder.Services.AddHttpClient<IRevalidacionWeb, RevalidacionWeb>(c => c.Timeout = TimeSpan.FromSeconds(10));
+// Usuario de la petición actual (lo usan los casos de uso y la auditoría automática)
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IUsuarioActual, UsuarioActualHttp>();
 
 // ---------- Autenticación JWT para el CMS ----------
-builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection(JwtSettings.Seccion));
-builder.Services.Configure<AdminInicialSettings>(builder.Configuration.GetSection(AdminInicialSettings.Seccion));
-
 var jwt = builder.Configuration.GetSection(JwtSettings.Seccion).Get<JwtSettings>() ?? new JwtSettings();
 if (string.IsNullOrWhiteSpace(jwt.Key) || jwt.Key.Length < 32)
     throw new InvalidOperationException(
@@ -119,16 +105,18 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Crea el administrador inicial si no hay usuarios (no impide arrancar si la BD no está disponible)
+// Aplica las migraciones pendientes y crea el administrador inicial si no hay usuarios
+// (si la BD no está disponible, la API arranca igual y lo informa en el log)
 using (var scope = app.Services.CreateScope())
 {
     try
     {
+        await scope.ServiceProvider.GetRequiredService<SurgeonDbContext>().Database.MigrateAsync();
         await scope.ServiceProvider.GetRequiredService<AdminSeeder>().EjecutarAsync();
     }
     catch (Exception ex)
     {
-        app.Logger.LogError(ex, "No se pudo verificar el usuario administrador inicial (¿la base de datos está disponible?).");
+        app.Logger.LogError(ex, "No se pudo preparar la base de datos (¿PostgreSQL está encendido?).");
     }
 }
 

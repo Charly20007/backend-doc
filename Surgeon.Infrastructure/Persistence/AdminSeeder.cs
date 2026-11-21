@@ -42,7 +42,7 @@ public class AdminSeeder
         var rol = await _db.Roles.FirstOrDefaultAsync(r => r.Nombre == RolesSistema.Administrador);
         if (rol == null)
         {
-            _logger.LogWarning("No existe el rol {Rol}; ejecute 02_Carga_Inicial.sql.", RolesSistema.Administrador);
+            _logger.LogWarning("No existe el rol {Rol}; cargue Persistence/Datos/datos_iniciales.sql.", RolesSistema.Administrador);
             return;
         }
 

@@ -1,7 +1,7 @@
 using Surgeon.Application.Interfaces;
 using Surgeon.Domain.Entities;
 
-namespace Surgeon.Application.Services;
+namespace Surgeon.Application.CasosDeUso;
 
 /// <summary>
 /// Mantiene las redirecciones 301 cuando cambia la URL de una página,

@@ -179,6 +179,9 @@ public static partial class Mapeos
         ImagenOgPorDefectoUrl = c.ImagenOgPorDefectoUrl,
         GoogleSiteVerification = c.GoogleSiteVerification,
         GoogleAnalyticsId = c.GoogleAnalyticsId,
+        DescripcionPie = c.DescripcionPie,
+        MostrarEmergencias = c.MostrarEmergencias,
+        TextoEmergencias = c.TextoEmergencias,
         Horarios = horarios
             .Where(h => h.EsActivo)
             .OrderBy(h => h.DiaSemana).ThenBy(h => h.HoraInicio)
@@ -216,7 +219,30 @@ public static partial class Mapeos
         c.ImagenOgPorDefectoUrl = Limpiar(dto.ImagenOgPorDefectoUrl);
         c.GoogleSiteVerification = Limpiar(dto.GoogleSiteVerification);
         c.GoogleAnalyticsId = Limpiar(dto.GoogleAnalyticsId);
+        c.DescripcionPie = Limpiar(dto.DescripcionPie);
+        c.MostrarEmergencias = dto.MostrarEmergencias;
+        c.TextoEmergencias = Limpiar(dto.TextoEmergencias);
     }
+
+    public static PaginaLegalResumenDto APaginaLegalResumenDto(this PaginaLegal p) => new()
+    {
+        Clave = p.Clave,
+        Ruta = p.Ruta,
+        Titulo = p.Titulo,
+        Publicada = p.Publicada,
+        FechaModificacion = p.FechaModificacion,
+    };
+
+    public static PaginaLegalDto APaginaLegalDto(this PaginaLegal p) => new()
+    {
+        Clave = p.Clave,
+        Ruta = p.Ruta,
+        Titulo = p.Titulo,
+        Publicada = p.Publicada,
+        FechaModificacion = p.FechaModificacion,
+        ContenidoHtml = p.ContenidoHtml,
+        Seo = p.ASeoDto(),
+    };
 
     [GeneratedRegex("<[^>]+>")]
     private static partial Regex EtiquetasHtml();

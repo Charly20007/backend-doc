@@ -26,29 +26,22 @@ public class SurgeonDbContext : DbContext
     public DbSet<ConfiguracionSitio> ConfiguracionSitio => Set<ConfiguracionSitio>();
     public DbSet<PaginaSeo> PaginasSeo => Set<PaginaSeo>();
     public DbSet<Redireccion> Redirecciones => Set<Redireccion>();
+    public DbSet<PaginaLegal> PaginasLegales => Set<PaginaLegal>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        // Mapeo exacto con los nombres de tablas en 01_Tabla_Maestra.sql
-        modelBuilder.Entity<Rol>().ToTable("Roles");
-        modelBuilder.Entity<Usuario>().ToTable("Usuarios");
-        modelBuilder.Entity<Especialidad>().ToTable("Especialidades");
-        modelBuilder.Entity<ServicioMedico>().ToTable("ServiciosMedicos");
-        modelBuilder.Entity<Paciente>().ToTable("Pacientes");
-        modelBuilder.Entity<EstadoCita>().ToTable("EstadosCita");
-        modelBuilder.Entity<Cita>().ToTable("Citas");
-        modelBuilder.Entity<HorarioAtencion>().ToTable("HorariosAtencion");
-        modelBuilder.Entity<BloqueoHorario>().ToTable("BloqueosHorario");
-        modelBuilder.Entity<CategoriaBlog>().ToTable("CategoriasBlog");
-        modelBuilder.Entity<ArticuloBlog>().ToTable("ArticulosBlog");
-        modelBuilder.Entity<Testimonio>().ToTable("Testimonios");
-        modelBuilder.Entity<MensajeContacto>().ToTable("MensajesContacto");
-        modelBuilder.Entity<ServicioContenido>().ToTable("ServiciosContenido");
-        modelBuilder.Entity<ConfiguracionSitio>().ToTable("ConfiguracionSitio");
-        modelBuilder.Entity<PaginaSeo>().ToTable("PaginasSeo");
-        modelBuilder.Entity<Redireccion>().ToTable("Redirecciones");
+        // Tablas y columnas en snake_case (convención de PostgreSQL), configurado en Program.cs
+
+        modelBuilder.Entity<PaginaLegal>().HasIndex(p => p.Clave).IsUnique();
+
+        modelBuilder.Entity<HorarioAtencion>().Property(h => h.HoraInicio).HasColumnType("time");
+        modelBuilder.Entity<HorarioAtencion>().Property(h => h.HoraFin).HasColumnType("time");
+
+        modelBuilder.Entity<CategoriaBlog>().HasIndex(c => c.Slug).IsUnique();
+        modelBuilder.Entity<Usuario>().HasIndex(u => u.Correo).IsUnique();
+        modelBuilder.Entity<Rol>().HasIndex(r => r.Nombre).IsUnique();
 
         modelBuilder.Entity<ServicioMedico>().Property(s => s.PrecioReferencial).HasPrecision(10, 2);
         modelBuilder.Entity<Cita>().Property(c => c.PrecioConsulta).HasPrecision(10, 2);

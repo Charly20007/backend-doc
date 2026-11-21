@@ -20,5 +20,6 @@ public interface IUnitOfWork : IDisposable
     IRepository<ConfiguracionSitio> ConfiguracionSitio { get; }
     IRepository<PaginaSeo> PaginasSeo { get; }
     IRepository<Redireccion> Redirecciones { get; }
+    IRepository<PaginaLegal> PaginasLegales { get; }
     Task<int> SaveChangesAsync();
 }

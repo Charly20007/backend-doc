@@ -49,3 +49,16 @@ public class CambiarEstadoCitaDto
     [Required(ErrorMessage = "El estado es obligatorio.")]
     public string NuevoEstadoNombre { get; set; } = string.Empty;
 }
+
+public class CitaCreadaDto
+{
+    public string Mensaje { get; set; } = string.Empty;
+    public int CitaId { get; set; }
+}
+
+public class EstadoCitaCambiadoDto
+{
+    public string Mensaje { get; set; } = string.Empty;
+    public string Estado { get; set; } = string.Empty;
+    public string ColorHex { get; set; } = string.Empty;
+}

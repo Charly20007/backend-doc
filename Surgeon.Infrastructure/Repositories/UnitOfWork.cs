@@ -24,6 +24,7 @@ public class UnitOfWork : IUnitOfWork
     public IRepository<ConfiguracionSitio> ConfiguracionSitio { get; }
     public IRepository<PaginaSeo> PaginasSeo { get; }
     public IRepository<Redireccion> Redirecciones { get; }
+    public IRepository<PaginaLegal> PaginasLegales { get; }
 
     public UnitOfWork(SurgeonDbContext context)
     {
@@ -44,6 +45,7 @@ public class UnitOfWork : IUnitOfWork
         ConfiguracionSitio = new Repository<ConfiguracionSitio>(_context);
         PaginasSeo = new Repository<PaginaSeo>(_context);
         Redirecciones = new Repository<Redireccion>(_context);
+        PaginasLegales = new Repository<PaginaLegal>(_context);
     }
 
     public async Task<int> SaveChangesAsync()

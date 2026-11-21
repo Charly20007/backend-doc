@@ -22,6 +22,16 @@ public static partial class SlugHelper
         return slug.Length > 150 ? slug[..150].Trim('-') : slug;
     }
 
+    /// <summary>
+    /// Libera un slug al eliminar un registro (la columna es única aunque el registro esté borrado):
+    /// "cirugia-de-vesicula" → "cirugia-de-vesicula--eliminado-7"
+    /// </summary>
+    public static string MarcarEliminado(string slug, int id, int largoMaximo)
+    {
+        var sufijo = $"--eliminado-{id}";
+        return (slug.Length + sufijo.Length > largoMaximo ? slug[..(largoMaximo - sufijo.Length)] : slug) + sufijo;
+    }
+
     [GeneratedRegex("[^a-z0-9]+")]
     private static partial Regex NoAlfanumerico();
 }
