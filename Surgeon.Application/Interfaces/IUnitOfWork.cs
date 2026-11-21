@@ -11,5 +11,14 @@ public interface IUnitOfWork : IDisposable
     IRepository<ArticuloBlog> ArticulosBlog { get; }
     IRepository<Testimonio> Testimonios { get; }
     IRepository<MensajeContacto> MensajesContacto { get; }
+    IRepository<Usuario> Usuarios { get; }
+    IRepository<Rol> Roles { get; }
+    IRepository<EstadoCita> EstadosCita { get; }
+    IRepository<CategoriaBlog> CategoriasBlog { get; }
+    IRepository<HorarioAtencion> HorariosAtencion { get; }
+    IRepository<ServicioContenido> ServiciosContenido { get; }
+    IRepository<ConfiguracionSitio> ConfiguracionSitio { get; }
+    IRepository<PaginaSeo> PaginasSeo { get; }
+    IRepository<Redireccion> Redirecciones { get; }
     Task<int> SaveChangesAsync();
 }

@@ -15,6 +15,15 @@ public class UnitOfWork : IUnitOfWork
     public IRepository<ArticuloBlog> ArticulosBlog { get; }
     public IRepository<Testimonio> Testimonios { get; }
     public IRepository<MensajeContacto> MensajesContacto { get; }
+    public IRepository<Usuario> Usuarios { get; }
+    public IRepository<Rol> Roles { get; }
+    public IRepository<EstadoCita> EstadosCita { get; }
+    public IRepository<CategoriaBlog> CategoriasBlog { get; }
+    public IRepository<HorarioAtencion> HorariosAtencion { get; }
+    public IRepository<ServicioContenido> ServiciosContenido { get; }
+    public IRepository<ConfiguracionSitio> ConfiguracionSitio { get; }
+    public IRepository<PaginaSeo> PaginasSeo { get; }
+    public IRepository<Redireccion> Redirecciones { get; }
 
     public UnitOfWork(SurgeonDbContext context)
     {
@@ -26,6 +35,15 @@ public class UnitOfWork : IUnitOfWork
         ArticulosBlog = new Repository<ArticuloBlog>(_context);
         Testimonios = new Repository<Testimonio>(_context);
         MensajesContacto = new Repository<MensajeContacto>(_context);
+        Usuarios = new Repository<Usuario>(_context);
+        Roles = new Repository<Rol>(_context);
+        EstadosCita = new Repository<EstadoCita>(_context);
+        CategoriasBlog = new Repository<CategoriaBlog>(_context);
+        HorariosAtencion = new Repository<HorarioAtencion>(_context);
+        ServiciosContenido = new Repository<ServicioContenido>(_context);
+        ConfiguracionSitio = new Repository<ConfiguracionSitio>(_context);
+        PaginasSeo = new Repository<PaginaSeo>(_context);
+        Redirecciones = new Repository<Redireccion>(_context);
     }
 
     public async Task<int> SaveChangesAsync()

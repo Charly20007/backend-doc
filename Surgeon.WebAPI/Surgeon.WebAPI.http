@@ -1,6 +1,41 @@
-@Surgeon.WebAPI_HostAddress = http://localhost:5029
+@host = http://localhost:5029
+# Credenciales de desarrollo: sección "AdminInicial" de appsettings.Development.local.json
+@correo = admin@cirujanogeneral.test
+@password = REEMPLAZAR_CON_LA_DE_appsettings.Development.local.json
 
-GET {{Surgeon.WebAPI_HostAddress}}/weatherforecast/
-Accept: application/json
+### Configuración pública del sitio
+GET {{host}}/api/configuracion
 
-###
+### Procedimientos
+GET {{host}}/api/servicios
+
+### Detalle de un procedimiento (contenido + SEO)
+GET {{host}}/api/servicios/slug/cirugia-de-vesicula-laparoscopica
+
+### Blog
+GET {{host}}/api/blog/articulos
+
+### SEO de páginas fijas
+GET {{host}}/api/seo/paginas
+
+### Login del CMS
+# @name login
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{ "correo": "{{correo}}", "password": "{{password}}" }
+
+### Agenda (requiere token)
+GET {{host}}/api/citas
+Authorization: Bearer {{login.response.body.token}}
+
+### Editar SEO de la portada (requiere token)
+PUT {{host}}/api/admin/seo/paginas/inicio
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+  "metaTitulo": "Cirujano General en Lima | Dr. Juan Carlos Marcos",
+  "metaDescripcion": "Cirugía de vesícula, hernias y apendicitis por laparoscopía en San Isidro. Agenda tu consulta.",
+  "indexable": true
+}

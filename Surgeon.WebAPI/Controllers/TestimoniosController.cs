@@ -1,36 +1,36 @@
 using Microsoft.AspNetCore.Mvc;
 using Surgeon.Application.DTOs;
 using Surgeon.Application.Interfaces;
+using Surgeon.Application.Mapping;
 
 namespace Surgeon.WebAPI.Controllers;
 
+/// <summary>Testimonios aprobados para la web (lectura pública).</summary>
 [ApiController]
 [Route("api/[controller]")]
 public class TestimoniosController : ControllerBase
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IUnitOfWork _uow;
 
-    public TestimoniosController(IUnitOfWork unitOfWork)
+    public TestimoniosController(IUnitOfWork uow)
     {
-        _unitOfWork = unitOfWork;
+        _uow = uow;
     }
 
+    /// <param name="servicio">Slug del procedimiento para filtrar (opcional).</param>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<TestimonioDto>>> GetTestimonios()
+    public async Task<ActionResult<IEnumerable<TestimonioDto>>> GetTestimonios([FromQuery] string? servicio = null)
     {
-        var testimonios = await _unitOfWork.Testimonios.GetAllAsync();
-        var webTestimonios = testimonios
-            .Where(t => t.AprobadoParaWeb)
-            .Select(t => new TestimonioDto
-            {
-                Id = t.Id,
-                NombrePaciente = t.NombrePaciente,
-                Procedimiento = t.Procedimiento,
-                CalificacionEstrellas = t.CalificacionEstrellas,
-                Comentario = t.Comentario,
-                FechaTestimonio = t.FechaTestimonio
-            });
+        var testimonios = await _uow.Testimonios.FindAsync(t => t.AprobadoParaWeb);
+        var slugs = (await _uow.ServiciosMedicos.GetAllAsync()).ToDictionary(s => s.Id, s => s.Slug);
 
-        return Ok(webTestimonios);
+        var dtos = testimonios
+            .OrderByDescending(t => t.FechaTestimonio)
+            .Select(t => t.ATestimonioDto(slugs));
+
+        if (!string.IsNullOrWhiteSpace(servicio))
+            dtos = dtos.Where(t => t.ProcedimientoSlug == servicio);
+
+        return Ok(dtos);
     }
 }

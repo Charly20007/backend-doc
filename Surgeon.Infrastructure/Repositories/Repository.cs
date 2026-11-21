@@ -50,4 +50,9 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
         entity.FechaModificacion = DateTime.UtcNow;
         _dbSet.Update(entity);
     }
+
+    public void RemovePermanently(T entity)
+    {
+        _dbSet.Remove(entity);
+    }
 }

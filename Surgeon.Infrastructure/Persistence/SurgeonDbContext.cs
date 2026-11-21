@@ -22,6 +22,10 @@ public class SurgeonDbContext : DbContext
     public DbSet<ArticuloBlog> ArticulosBlog => Set<ArticuloBlog>();
     public DbSet<Testimonio> Testimonios => Set<Testimonio>();
     public DbSet<MensajeContacto> MensajesContacto => Set<MensajeContacto>();
+    public DbSet<ServicioContenido> ServiciosContenido => Set<ServicioContenido>();
+    public DbSet<ConfiguracionSitio> ConfiguracionSitio => Set<ConfiguracionSitio>();
+    public DbSet<PaginaSeo> PaginasSeo => Set<PaginaSeo>();
+    public DbSet<Redireccion> Redirecciones => Set<Redireccion>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -41,6 +45,13 @@ public class SurgeonDbContext : DbContext
         modelBuilder.Entity<ArticuloBlog>().ToTable("ArticulosBlog");
         modelBuilder.Entity<Testimonio>().ToTable("Testimonios");
         modelBuilder.Entity<MensajeContacto>().ToTable("MensajesContacto");
+        modelBuilder.Entity<ServicioContenido>().ToTable("ServiciosContenido");
+        modelBuilder.Entity<ConfiguracionSitio>().ToTable("ConfiguracionSitio");
+        modelBuilder.Entity<PaginaSeo>().ToTable("PaginasSeo");
+        modelBuilder.Entity<Redireccion>().ToTable("Redirecciones");
+
+        modelBuilder.Entity<ServicioMedico>().Property(s => s.PrecioReferencial).HasPrecision(10, 2);
+        modelBuilder.Entity<Cita>().Property(c => c.PrecioConsulta).HasPrecision(10, 2);
 
         // Configuración de índices y relaciones
         modelBuilder.Entity<ServicioMedico>()
@@ -73,6 +84,38 @@ public class SurgeonDbContext : DbContext
             .HasOne(c => c.EstadoCita)
             .WithMany(e => e.Citas)
             .HasForeignKey(c => c.IdEstadoCita)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<PaginaSeo>()
+            .HasIndex(p => p.Clave)
+            .IsUnique();
+
+        modelBuilder.Entity<Redireccion>()
+            .HasIndex(r => r.RutaOrigen)
+            .IsUnique();
+
+        modelBuilder.Entity<ServicioContenido>()
+            .HasOne(c => c.ServicioMedico)
+            .WithMany(s => s.Contenidos)
+            .HasForeignKey(c => c.IdServicioMedico)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<ArticuloBlog>()
+            .HasOne(a => a.ServicioMedico)
+            .WithMany()
+            .HasForeignKey(a => a.IdServicioMedico)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Testimonio>()
+            .HasOne(t => t.ServicioMedico)
+            .WithMany()
+            .HasForeignKey(t => t.IdServicioMedico)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Usuario>()
+            .HasOne(u => u.Rol)
+            .WithMany(r => r.Usuarios)
+            .HasForeignKey(u => u.IdRol)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<ArticuloBlog>()

@@ -2,6 +2,10 @@
 -- SCRIPT DE LIMPIEZA DE TABLAS Y CATÁLOGOS - CIRUJANO GENERAL
 -- =========================================================================
 
+IF OBJECT_ID('dbo.Redirecciones', 'U') IS NOT NULL DROP TABLE dbo.Redirecciones;
+IF OBJECT_ID('dbo.PaginasSeo', 'U') IS NOT NULL DROP TABLE dbo.PaginasSeo;
+IF OBJECT_ID('dbo.ConfiguracionSitio', 'U') IS NOT NULL DROP TABLE dbo.ConfiguracionSitio;
+IF OBJECT_ID('dbo.ServiciosContenido', 'U') IS NOT NULL DROP TABLE dbo.ServiciosContenido;
 IF OBJECT_ID('dbo.MensajesContacto', 'U') IS NOT NULL DROP TABLE dbo.MensajesContacto;
 IF OBJECT_ID('dbo.Testimonios', 'U') IS NOT NULL DROP TABLE dbo.Testimonios;
 IF OBJECT_ID('dbo.ArticulosBlog', 'U') IS NOT NULL DROP TABLE dbo.ArticulosBlog;
