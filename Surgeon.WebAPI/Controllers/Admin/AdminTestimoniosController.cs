@@ -14,18 +14,22 @@ public class AdminTestimoniosController : AdminControllerBase
     public AdminTestimoniosController(TestimoniosService testimonios) => _testimonios = testimonios;
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<TestimonioDto>>> GetTodos() => Ok(await _testimonios.ListarTodosAsync());
+    public async Task<ActionResult<IEnumerable<TestimonioAdminDto>>> GetTodos() => Ok(await _testimonios.ListarTodosAsync());
+
+    /// <summary>Cantidad de testimonios enviados desde la web que esperan revisión.</summary>
+    [HttpGet("pendientes")]
+    public async Task<ActionResult<PendientesDto>> GetPendientes() => Ok(await _testimonios.ContarPendientesAsync());
 
     [HttpPost]
-    public async Task<ActionResult<TestimonioDto>> Crear([FromBody] TestimonioGuardarDto dto) => Responder(await _testimonios.CrearAsync(dto));
+    public async Task<ActionResult<TestimonioAdminDto>> Crear([FromBody] TestimonioGuardarDto dto) => Responder(await _testimonios.CrearAsync(dto));
 
     [HttpPut("{id:int}")]
-    public async Task<ActionResult<TestimonioDto>> Actualizar(int id, [FromBody] TestimonioGuardarDto dto) =>
+    public async Task<ActionResult<TestimonioAdminDto>> Actualizar(int id, [FromBody] TestimonioGuardarDto dto) =>
         Responder(await _testimonios.ActualizarAsync(id, dto));
 
     /// <summary>Aprueba u oculta un testimonio en la web sin editarlo.</summary>
     [HttpPut("{id:int}/aprobacion")]
-    public async Task<ActionResult<TestimonioDto>> CambiarAprobacion(int id, [FromQuery] bool aprobado) =>
+    public async Task<ActionResult<TestimonioAdminDto>> CambiarAprobacion(int id, [FromQuery] bool aprobado) =>
         Responder(await _testimonios.CambiarAprobacionAsync(id, aprobado));
 
     [HttpDelete("{id:int}")]

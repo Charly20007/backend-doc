@@ -16,10 +16,15 @@ public interface IUnitOfWork : IDisposable
     IRepository<EstadoCita> EstadosCita { get; }
     IRepository<CategoriaBlog> CategoriasBlog { get; }
     IRepository<HorarioAtencion> HorariosAtencion { get; }
+    IRepository<BloqueoHorario> BloqueosHorario { get; }
     IRepository<ServicioContenido> ServiciosContenido { get; }
     IRepository<ConfiguracionSitio> ConfiguracionSitio { get; }
     IRepository<PaginaSeo> PaginasSeo { get; }
     IRepository<Redireccion> Redirecciones { get; }
     IRepository<PaginaLegal> PaginasLegales { get; }
+    /// <summary>
+    /// Guarda los cambios. Lanza <see cref="Common.ConflictoDeDatosException"/> si se viola una
+    /// restricción única (p. ej. dos pacientes reservando el mismo turno al mismo tiempo).
+    /// </summary>
     Task<int> SaveChangesAsync();
 }

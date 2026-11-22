@@ -246,7 +246,7 @@ Artículos del blog (/blog/{slug}) con su SEO; pueden enlazar a un procedimiento
 
 #### `testimonios` — 3 filas
 
-Testimonios de pacientes; se publican solo si aprobado_para_web = true.
+Testimonios de pacientes; se publican solo si aprobado_para_web = true. Los que envía un paciente desde la web entran con pendiente_revision = true y aprobado_para_web = false hasta que el administrador los revisa en el CMS.
 
 | Columna | Tipo | Nulo | Notas |
 |---|---|---|---|
@@ -258,6 +258,10 @@ Testimonios de pacientes; se publican solo si aprobado_para_web = true.
 | `comentario` | text | no |  |
 | `fecha_testimonio` | timestamp | no |  |
 | `aprobado_para_web` | bool | no |  |
+| `enviado_desde_web` | bool | no | Lo envió un paciente (no el administrador) |
+| `pendiente_revision` | bool | no | Esperando revisión en el CMS |
+| `autoriza_publicacion` | bool | no | El paciente autorizó publicarlo con su nombre (Ley 29733) |
+| `contacto_paciente` | text | sí | Teléfono o correo para verificarlo; nunca se publica |
 
 <sub>+ columnas de auditoría</sub>
 

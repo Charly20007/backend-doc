@@ -277,6 +277,10 @@ namespace Surgeon.Infrastructure.Persistence.Migraciones
                         .HasColumnType("text")
                         .HasColumnName("notas_medico");
 
+                    b.Property<bool>("OcupaTurno")
+                        .HasColumnType("boolean")
+                        .HasColumnName("ocupa_turno");
+
                     b.Property<decimal?>("PrecioConsulta")
                         .HasPrecision(10, 2)
                         .HasColumnType("numeric(10,2)")
@@ -289,6 +293,11 @@ namespace Surgeon.Infrastructure.Persistence.Migraciones
 
                     b.HasKey("Id")
                         .HasName("pk_citas");
+
+                    b.HasIndex("FechaHoraInicio")
+                        .IsUnique()
+                        .HasDatabaseName("ix_citas_turno_ocupado")
+                        .HasFilter("ocupa_turno AND NOT eliminado");
 
                     b.HasIndex("IdEstadoCita")
                         .HasDatabaseName("ix_citas_id_estado_cita");
@@ -311,6 +320,10 @@ namespace Surgeon.Infrastructure.Persistence.Migraciones
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AnticipacionMinimaHoras")
+                        .HasColumnType("integer")
+                        .HasColumnName("anticipacion_minima_horas");
+
                     b.Property<string>("Ciudad")
                         .HasColumnType("text")
                         .HasColumnName("ciudad");
@@ -327,6 +340,10 @@ namespace Surgeon.Infrastructure.Persistence.Migraciones
                         .HasColumnType("text")
                         .HasColumnName("descripcion_pie");
 
+                    b.Property<int>("DiasMaximosReserva")
+                        .HasColumnType("integer")
+                        .HasColumnName("dias_maximos_reserva");
+
                     b.Property<string>("Direccion")
                         .HasColumnType("text")
                         .HasColumnName("direccion");
@@ -334,6 +351,10 @@ namespace Surgeon.Infrastructure.Persistence.Migraciones
                     b.Property<string>("Distrito")
                         .HasColumnType("text")
                         .HasColumnName("distrito");
+
+                    b.Property<int>("DuracionTurnoMinutos")
+                        .HasColumnType("integer")
+                        .HasColumnName("duracion_turno_minutos");
 
                     b.Property<bool>("Eliminado")
                         .HasColumnType("boolean")
@@ -413,6 +434,10 @@ namespace Surgeon.Infrastructure.Persistence.Migraciones
                     b.Property<string>("Region")
                         .HasColumnType("text")
                         .HasColumnName("region");
+
+                    b.Property<bool>("ReservasOnlineActivas")
+                        .HasColumnType("boolean")
+                        .HasColumnName("reservas_online_activas");
 
                     b.Property<string>("Rne")
                         .HasColumnType("text")
@@ -1158,6 +1183,10 @@ namespace Surgeon.Infrastructure.Persistence.Migraciones
                         .HasColumnType("boolean")
                         .HasColumnName("aprobado_para_web");
 
+                    b.Property<bool>("AutorizaPublicacion")
+                        .HasColumnType("boolean")
+                        .HasColumnName("autoriza_publicacion");
+
                     b.Property<int>("CalificacionEstrellas")
                         .HasColumnType("integer")
                         .HasColumnName("calificacion_estrellas");
@@ -1167,9 +1196,17 @@ namespace Surgeon.Infrastructure.Persistence.Migraciones
                         .HasColumnType("text")
                         .HasColumnName("comentario");
 
+                    b.Property<string>("ContactoPaciente")
+                        .HasColumnType("text")
+                        .HasColumnName("contacto_paciente");
+
                     b.Property<bool>("Eliminado")
                         .HasColumnType("boolean")
                         .HasColumnName("eliminado");
+
+                    b.Property<bool>("EnviadoDesdeWeb")
+                        .HasColumnType("boolean")
+                        .HasColumnName("enviado_desde_web");
 
                     b.Property<DateTime>("FechaModificacion")
                         .HasColumnType("timestamp without time zone")
@@ -1192,6 +1229,10 @@ namespace Surgeon.Infrastructure.Persistence.Migraciones
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("nombre_paciente");
+
+                    b.Property<bool>("PendienteRevision")
+                        .HasColumnType("boolean")
+                        .HasColumnName("pendiente_revision");
 
                     b.Property<string>("Procedimiento")
                         .IsRequired()

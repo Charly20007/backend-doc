@@ -40,6 +40,15 @@ public class SurgeonDbContext : DbContext
         modelBuilder.Entity<HorarioAtencion>().Property(h => h.HoraFin).HasColumnType("time");
 
         modelBuilder.Entity<CategoriaBlog>().HasIndex(c => c.Slug).IsUnique();
+
+        // Un turno solo puede tener una cita activa: la base de datos lo garantiza aunque
+        // dos pacientes reserven exactamente al mismo tiempo
+        modelBuilder.Entity<Cita>()
+            .HasIndex(c => c.FechaHoraInicio)
+            .IsUnique()
+            .HasFilter("ocupa_turno AND NOT eliminado")
+            .HasDatabaseName("ix_citas_turno_ocupado");
+
         modelBuilder.Entity<Usuario>().HasIndex(u => u.Correo).IsUnique();
         modelBuilder.Entity<Rol>().HasIndex(r => r.Nombre).IsUnique();
 

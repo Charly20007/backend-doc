@@ -129,6 +129,23 @@ public static partial class Mapeos
         AprobadoParaWeb = t.AprobadoParaWeb,
     };
 
+    public static TestimonioAdminDto ATestimonioAdminDto(this Testimonio t, IReadOnlyDictionary<int, string> slugsServicios) => new()
+    {
+        Id = t.Id,
+        NombrePaciente = t.NombrePaciente,
+        Procedimiento = t.Procedimiento,
+        IdServicioMedico = t.IdServicioMedico,
+        ProcedimientoSlug = t.IdServicioMedico is int id && slugsServicios.TryGetValue(id, out var slug) ? slug : null,
+        CalificacionEstrellas = t.CalificacionEstrellas,
+        Comentario = t.Comentario,
+        FechaTestimonio = t.FechaTestimonio,
+        AprobadoParaWeb = t.AprobadoParaWeb,
+        EnviadoDesdeWeb = t.EnviadoDesdeWeb,
+        PendienteRevision = t.PendienteRevision,
+        AutorizaPublicacion = t.AutorizaPublicacion,
+        ContactoPaciente = t.ContactoPaciente,
+    };
+
     public static PaginaSeoDto APaginaSeoDto(this PaginaSeo p) => new()
     {
         Id = p.Id,
@@ -182,6 +199,10 @@ public static partial class Mapeos
         DescripcionPie = c.DescripcionPie,
         MostrarEmergencias = c.MostrarEmergencias,
         TextoEmergencias = c.TextoEmergencias,
+        ReservasOnlineActivas = c.ReservasOnlineActivas,
+        DuracionTurnoMinutos = c.DuracionTurnoMinutos,
+        AnticipacionMinimaHoras = c.AnticipacionMinimaHoras,
+        DiasMaximosReserva = c.DiasMaximosReserva,
         Horarios = horarios
             .Where(h => h.EsActivo)
             .OrderBy(h => h.DiaSemana).ThenBy(h => h.HoraInicio)
@@ -222,6 +243,10 @@ public static partial class Mapeos
         c.DescripcionPie = Limpiar(dto.DescripcionPie);
         c.MostrarEmergencias = dto.MostrarEmergencias;
         c.TextoEmergencias = Limpiar(dto.TextoEmergencias);
+        c.ReservasOnlineActivas = dto.ReservasOnlineActivas;
+        c.DuracionTurnoMinutos = dto.DuracionTurnoMinutos;
+        c.AnticipacionMinimaHoras = dto.AnticipacionMinimaHoras;
+        c.DiasMaximosReserva = dto.DiasMaximosReserva;
     }
 
     public static PaginaLegalResumenDto APaginaLegalResumenDto(this PaginaLegal p) => new()

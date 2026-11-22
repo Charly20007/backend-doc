@@ -15,6 +15,8 @@ public static class DependencyInjection
         services.AddScoped<ConfiguracionService>();
         services.AddScoped<SeoService>();
         services.AddScoped<PaginasLegalesService>();
+        services.AddSingleton(TimeProvider.System);
+        services.AddScoped<AgendaService>();
         services.AddScoped<CitasService>();
         services.AddScoped<AuthService>();
         services.AddScoped<CatalogosService>();

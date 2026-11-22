@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
+using Surgeon.Application.Common;
 using Surgeon.Application.Interfaces;
 using Surgeon.Domain.Entities;
 using Surgeon.Infrastructure.Persistence;
@@ -20,6 +23,7 @@ public class UnitOfWork : IUnitOfWork
     public IRepository<EstadoCita> EstadosCita { get; }
     public IRepository<CategoriaBlog> CategoriasBlog { get; }
     public IRepository<HorarioAtencion> HorariosAtencion { get; }
+    public IRepository<BloqueoHorario> BloqueosHorario { get; }
     public IRepository<ServicioContenido> ServiciosContenido { get; }
     public IRepository<ConfiguracionSitio> ConfiguracionSitio { get; }
     public IRepository<PaginaSeo> PaginasSeo { get; }
@@ -41,6 +45,7 @@ public class UnitOfWork : IUnitOfWork
         EstadosCita = new Repository<EstadoCita>(_context);
         CategoriasBlog = new Repository<CategoriaBlog>(_context);
         HorariosAtencion = new Repository<HorarioAtencion>(_context);
+        BloqueosHorario = new Repository<BloqueoHorario>(_context);
         ServiciosContenido = new Repository<ServicioContenido>(_context);
         ConfiguracionSitio = new Repository<ConfiguracionSitio>(_context);
         PaginasSeo = new Repository<PaginaSeo>(_context);
@@ -50,7 +55,16 @@ public class UnitOfWork : IUnitOfWork
 
     public async Task<int> SaveChangesAsync()
     {
-        return await _context.SaveChangesAsync();
+        try
+        {
+            return await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateException ex) when (ex.InnerException is PostgresException { SqlState: PostgresErrorCodes.UniqueViolation })
+        {
+            // Se traduce a una excepción propia para que Application no dependa de EF ni de PostgreSQL
+            _context.ChangeTracker.Clear();
+            throw new ConflictoDeDatosException("Los datos entran en conflicto con un registro existente.", ex);
+        }
     }
 
     public void Dispose()

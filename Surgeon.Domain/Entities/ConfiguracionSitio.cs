@@ -37,6 +37,16 @@ public class ConfiguracionSitio : BaseEntity
     /// <summary>Ej.: "Emergencias quirúrgicas: 24 horas".</summary>
     public string? TextoEmergencias { get; set; }
 
+    // Reservas online
+    /// <summary>Si es false, el formulario de la web no ofrece turnos y pide llamar.</summary>
+    public bool ReservasOnlineActivas { get; set; } = true;
+    /// <summary>Duración de cada turno de consulta.</summary>
+    public int DuracionTurnoMinutos { get; set; } = 30;
+    /// <summary>No se puede reservar un turno que empieza antes de estas horas desde ahora.</summary>
+    public int AnticipacionMinimaHoras { get; set; } = 2;
+    /// <summary>Hasta cuántos días hacia adelante se muestran turnos.</summary>
+    public int DiasMaximosReserva { get; set; } = 30;
+
     // Redes sociales
     public string? FacebookUrl { get; set; }
     public string? InstagramUrl { get; set; }

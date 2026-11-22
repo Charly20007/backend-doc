@@ -32,6 +32,14 @@ public class ConfiguracionSitioDto
     public bool MostrarEmergencias { get; set; }
     [MaxLength(100)] public string? TextoEmergencias { get; set; }
 
+    public bool ReservasOnlineActivas { get; set; } = true;
+    [Range(10, 240, ErrorMessage = "La duración del turno debe estar entre 10 y 240 minutos.")]
+    public int DuracionTurnoMinutos { get; set; } = 30;
+    [Range(0, 168, ErrorMessage = "La anticipación mínima debe estar entre 0 y 168 horas.")]
+    public int AnticipacionMinimaHoras { get; set; } = 2;
+    [Range(1, 180, ErrorMessage = "Los días de reserva deben estar entre 1 y 180.")]
+    public int DiasMaximosReserva { get; set; } = 30;
+
     [MaxLength(300)][Url] public string? FacebookUrl { get; set; }
     [MaxLength(300)][Url] public string? InstagramUrl { get; set; }
     [MaxLength(300)][Url] public string? TikTokUrl { get; set; }
