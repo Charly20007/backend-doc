@@ -27,6 +27,11 @@ public class AdminBlogController : AdminControllerBase
     public async Task<ActionResult<ArticuloBlogDto>> ActualizarArticulo(int id, [FromBody] ArticuloBlogGuardarDto dto) =>
         Responder(await _blog.ActualizarAsync(id, dto));
 
+/// <summary>Elige el artículo que sale en grande en el blog. Solo uno a la vez.</summary>
+    [HttpPut("articulos/{id:int}/destacado")]
+    public async Task<ActionResult<ArticuloBlogDto>> Destacar(int id, [FromBody] DestacarDto dto) =>
+        Responder(await _blog.DestacarAsync(id, dto.Destacado));
+
     [HttpDelete("articulos/{id:int}")]
     public async Task<ActionResult> EliminarArticulo(int id) => SinContenido(await _blog.EliminarAsync(id));
 

@@ -237,6 +237,7 @@ Artículos del blog (/blog/{slug}) con su SEO; pueden enlazar a un procedimiento
 | `fecha_publicacion` | timestamp | no |  |
 | `publicado_en_web` | bool | no |  |
 | `vistas` | int | no |  |
+| `destacado` | bool | no | Se muestra en grande en /blog; solo uno a la vez |
 | `meta_titulo` | text | sí |  |
 | `meta_descripcion` | text | sí |  |
 | `imagen_og_url` | text | sí |  |
@@ -329,7 +330,7 @@ Una sola fila: datos del doctor, contacto, pie de página, redes y Google.
 
 #### `paginas_seo` — 5 filas
 
-SEO de las páginas fijas: inicio, procedimientos, blog, perfil-doctor, contacto.
+SEO y textos visibles de las páginas fijas: inicio, procedimientos, blog, perfil-doctor, contacto.
 
 | Columna | Tipo | Nulo | Notas |
 |---|---|---|---|
@@ -337,6 +338,9 @@ SEO de las páginas fijas: inicio, procedimientos, blog, perfil-doctor, contacto
 | `clave` | text | no |  |
 | `ruta` | text | no |  |
 | `nombre_pagina` | text | no |  |
+| `titulo` | text | sí | Título visible (h1); vacío = texto por defecto de la web |
+| `descripcion` | text | sí | Frase bajo el título |
+| `titulo_secundario` | text | sí | Título de una sección secundaria (columna lateral del blog) |
 | `meta_titulo` | text | sí |  |
 | `meta_descripcion` | text | sí |  |
 | `imagen_og_url` | text | sí |  |

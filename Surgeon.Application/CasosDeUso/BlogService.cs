@@ -103,6 +103,28 @@ public class BlogService
         return await ADto(articulo);
     }
 
+/// <summary>Marca el artículo que se muestra en grande en el blog (desmarca al anterior).</summary>
+    public async Task<Resultado<ArticuloBlogDto>> DestacarAsync(int id, bool destacado)
+    {
+        var articulo = await _uow.ArticulosBlog.GetByIdAsync(id);
+        if (articulo == null)
+            return Error.NoEncontrado("Artículo no encontrado");
+
+        if (destacado)
+        {
+            foreach (var otro in await _uow.ArticulosBlog.FindAsync(a => a.Destacado && a.Id != id))
+            {
+                otro.Destacado = false;
+                _uow.ArticulosBlog.Update(otro);
+            }
+        }
+
+        articulo.Destacado = destacado;
+        _uow.ArticulosBlog.Update(articulo);
+        await _uow.SaveChangesAsync();
+        return await ADto(articulo);
+    }
+
     public async Task<Resultado> EliminarAsync(int id)
     {
         var articulo = await _uow.ArticulosBlog.GetByIdAsync(id);

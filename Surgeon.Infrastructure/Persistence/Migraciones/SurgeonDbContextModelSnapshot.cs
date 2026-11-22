@@ -41,6 +41,10 @@ namespace Surgeon.Infrastructure.Persistence.Migraciones
                         .HasColumnType("text")
                         .HasColumnName("contenido_html");
 
+                    b.Property<bool>("Destacado")
+                        .HasColumnType("boolean")
+                        .HasColumnName("destacado");
+
                     b.Property<bool>("Eliminado")
                         .HasColumnType("boolean")
                         .HasColumnName("eliminado");
@@ -845,6 +849,10 @@ namespace Surgeon.Infrastructure.Persistence.Migraciones
                         .HasColumnType("text")
                         .HasColumnName("clave");
 
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("text")
+                        .HasColumnName("descripcion");
+
                     b.Property<bool>("Eliminado")
                         .HasColumnType("boolean")
                         .HasColumnName("eliminado");
@@ -883,6 +891,14 @@ namespace Surgeon.Infrastructure.Persistence.Migraciones
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("ruta");
+
+                    b.Property<string>("Titulo")
+                        .HasColumnType("text")
+                        .HasColumnName("titulo");
+
+                    b.Property<string>("TituloSecundario")
+                        .HasColumnType("text")
+                        .HasColumnName("titulo_secundario");
 
                     b.Property<string>("UsuarioModificacion")
                         .IsRequired()

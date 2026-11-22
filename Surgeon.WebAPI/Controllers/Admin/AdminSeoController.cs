@@ -21,6 +21,11 @@ public class AdminSeoController : AdminControllerBase
     public async Task<ActionResult<PaginaSeoDto>> ActualizarPagina(string clave, [FromBody] SeoDto dto) =>
         Responder(await _seo.ActualizarPaginaAsync(clave, dto));
 
+/// <summary>Textos visibles de la página (título, descripción…).</summary>
+    [HttpPut("paginas/{clave}/textos")]
+    public async Task<ActionResult<PaginaSeoDto>> ActualizarTextos(string clave, [FromBody] PaginaTextosDto dto) =>
+        Responder(await _seo.ActualizarTextosAsync(clave, dto));
+
     [HttpGet("redirecciones")]
     public async Task<ActionResult<IEnumerable<RedireccionDto>>> GetRedirecciones() => Ok(await _seo.ListarRedireccionesAsync());
 

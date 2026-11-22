@@ -17,6 +17,8 @@ public class ArticuloBlog : BaseEntity, ISeoEntity
     public DateTime FechaPublicacion { get; set; } = DateTime.UtcNow;
     public bool PublicadoEnWeb { get; set; } = true;
     public int Vistas { get; set; } = 0;
+    /// <summary>Se muestra en grande en el blog. Solo un artículo puede estar destacado.</summary>
+    public bool Destacado { get; set; } = false;
 
     // SEO
     public string? MetaTitulo { get; set; }

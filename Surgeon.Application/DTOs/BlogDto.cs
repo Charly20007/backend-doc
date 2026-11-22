@@ -44,7 +44,13 @@ public class ArticuloBlogDto
     public int TiempoLectura { get; set; }
     public int Vistas { get; set; }
     public bool PublicadoEnWeb { get; set; }
+    public bool Destacado { get; set; }
     public SeoDto Seo { get; set; } = new();
+}
+
+public class DestacarDto
+{
+    public bool Destacado { get; set; }
 }
 
 public class ArticuloBlogGuardarDto

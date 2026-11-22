@@ -105,6 +105,7 @@ public static partial class Mapeos
         TiempoLectura = a.TiempoLecturaMinutos,
         Vistas = a.Vistas,
         PublicadoEnWeb = a.PublicadoEnWeb,
+        Destacado = a.Destacado,
         Seo = a.ASeoDto(),
     };
 
@@ -152,6 +153,9 @@ public static partial class Mapeos
         Clave = p.Clave,
         Ruta = p.Ruta,
         NombrePagina = p.NombrePagina,
+        Titulo = p.Titulo,
+        Descripcion = p.Descripcion,
+        TituloSecundario = p.TituloSecundario,
         Seo = p.ASeoDto(),
         FechaModificacion = p.FechaModificacion,
     };

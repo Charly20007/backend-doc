@@ -26,8 +26,24 @@ public class PaginaSeoDto
     public string Clave { get; set; } = string.Empty;
     public string Ruta { get; set; } = string.Empty;
     public string NombrePagina { get; set; } = string.Empty;
+    public string? Titulo { get; set; }
+    public string? Descripcion { get; set; }
+    public string? TituloSecundario { get; set; }
     public SeoDto Seo { get; set; } = new();
     public DateTime FechaModificacion { get; set; }
+}
+
+/// <summary>Textos visibles de una página fija. Vacío = la web usa su texto por defecto.</summary>
+public class PaginaTextosDto
+{
+    [MaxLength(150, ErrorMessage = "El título no puede superar 150 caracteres.")]
+    public string? Titulo { get; set; }
+
+    [MaxLength(300, ErrorMessage = "La descripción no puede superar 300 caracteres.")]
+    public string? Descripcion { get; set; }
+
+    [MaxLength(100, ErrorMessage = "El título secundario no puede superar 100 caracteres.")]
+    public string? TituloSecundario { get; set; }
 }
 
 public class RedireccionDto

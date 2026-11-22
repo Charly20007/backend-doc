@@ -45,6 +45,20 @@ public class SeoService
         return pagina.APaginaSeoDto();
     }
 
+public async Task<Resultado<PaginaSeoDto>> ActualizarTextosAsync(string clave, PaginaTextosDto dto)
+    {
+        var pagina = (await _uow.PaginasSeo.FindAsync(p => p.Clave == clave)).FirstOrDefault();
+        if (pagina == null)
+            return Error.NoEncontrado("Página no encontrada");
+
+        pagina.Titulo = Mapeos.Limpiar(dto.Titulo);
+        pagina.Descripcion = Mapeos.Limpiar(dto.Descripcion);
+        pagina.TituloSecundario = Mapeos.Limpiar(dto.TituloSecundario);
+        _uow.PaginasSeo.Update(pagina);
+        await _uow.SaveChangesAsync();
+        return pagina.APaginaSeoDto();
+    }
+
     // ---------- Redirecciones ----------
 
     public async Task<IEnumerable<RedireccionDto>> ListarRedireccionesActivasAsync()
