@@ -47,6 +47,18 @@ public class ConfiguracionSitio : BaseEntity
     /// <summary>Hasta cuántos días hacia adelante se muestran turnos.</summary>
     public int DiasMaximosReserva { get; set; } = 30;
 
+    // Reserva en una clínica externa (ej.: SANNA)
+    /// <summary>Si es true, «Agendar cita» ofrece también reservar en la clínica.</summary>
+    public bool ReservaClinicaActiva { get; set; } = false;
+    /// <summary>Ej.: "Clínica SANNA San Borja".</summary>
+    public string? ReservaClinicaNombre { get; set; }
+    /// <summary>Página de la clínica donde se reserva (puede llevar #:~:text= para resaltar el nombre).</summary>
+    public string? ReservaClinicaUrl { get; set; }
+    /// <summary>Central telefónica de la clínica.</summary>
+    public string? ReservaClinicaTelefono { get; set; }
+    /// <summary>Texto que el paciente debe buscar en la web de la clínica. Ej.: "Marcos Enriquez".</summary>
+    public string? ReservaClinicaTextoBusqueda { get; set; }
+
     // Redes sociales
     public string? FacebookUrl { get; set; }
     public string? InstagramUrl { get; set; }

@@ -314,6 +314,11 @@ Una sola fila: datos del doctor, contacto, pie de página, redes y Google.
 | `descripcion_pie` | text | sí |  |
 | `mostrar_emergencias` | bool | no |  |
 | `texto_emergencias` | text | sí |  |
+| `reserva_clinica_activa` | bool | no | «Agendar cita» ofrece también reservar en una clínica (ej.: SANNA) |
+| `reserva_clinica_nombre` | text | sí | Ej.: «Clínica SANNA San Borja» |
+| `reserva_clinica_url` | text | sí | Página de la clínica; puede llevar `#:~:text=` para resaltar el nombre |
+| `reserva_clinica_telefono` | text | sí | Central telefónica de la clínica |
+| `reserva_clinica_texto_busqueda` | text | sí | Nombre que el paciente busca en la web de la clínica |
 | `facebook_url` | text | sí |  |
 | `instagram_url` | text | sí |  |
 | `tik_tok_url` | text | sí |  |

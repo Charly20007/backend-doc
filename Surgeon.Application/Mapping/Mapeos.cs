@@ -207,6 +207,11 @@ public static partial class Mapeos
         DuracionTurnoMinutos = c.DuracionTurnoMinutos,
         AnticipacionMinimaHoras = c.AnticipacionMinimaHoras,
         DiasMaximosReserva = c.DiasMaximosReserva,
+        ReservaClinicaActiva = c.ReservaClinicaActiva,
+        ReservaClinicaNombre = c.ReservaClinicaNombre,
+        ReservaClinicaUrl = c.ReservaClinicaUrl,
+        ReservaClinicaTelefono = c.ReservaClinicaTelefono,
+        ReservaClinicaTextoBusqueda = c.ReservaClinicaTextoBusqueda,
         Horarios = horarios
             .Where(h => h.EsActivo)
             .OrderBy(h => h.DiaSemana).ThenBy(h => h.HoraInicio)
@@ -251,6 +256,11 @@ public static partial class Mapeos
         c.DuracionTurnoMinutos = dto.DuracionTurnoMinutos;
         c.AnticipacionMinimaHoras = dto.AnticipacionMinimaHoras;
         c.DiasMaximosReserva = dto.DiasMaximosReserva;
+        c.ReservaClinicaActiva = dto.ReservaClinicaActiva;
+        c.ReservaClinicaNombre = Limpiar(dto.ReservaClinicaNombre);
+        c.ReservaClinicaUrl = Limpiar(dto.ReservaClinicaUrl);
+        c.ReservaClinicaTelefono = Limpiar(dto.ReservaClinicaTelefono);
+        c.ReservaClinicaTextoBusqueda = Limpiar(dto.ReservaClinicaTextoBusqueda);
     }
 
     public static PaginaLegalResumenDto APaginaLegalResumenDto(this PaginaLegal p) => new()

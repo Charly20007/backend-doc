@@ -40,6 +40,14 @@ public class ConfiguracionSitioDto
     [Range(1, 180, ErrorMessage = "Los días de reserva deben estar entre 1 y 180.")]
     public int DiasMaximosReserva { get; set; } = 30;
 
+    public bool ReservaClinicaActiva { get; set; }
+    [MaxLength(100)] public string? ReservaClinicaNombre { get; set; }
+    [MaxLength(1000)][Url(ErrorMessage = "El enlace de la clínica no es válido.")]
+    public string? ReservaClinicaUrl { get; set; }
+    [MaxLength(30)][RegularExpression(@"^\+?[0-9 ()-]{6,30}$", ErrorMessage = "Teléfono de la clínica no válido.")]
+    public string? ReservaClinicaTelefono { get; set; }
+    [MaxLength(100)] public string? ReservaClinicaTextoBusqueda { get; set; }
+
     [MaxLength(300)][Url] public string? FacebookUrl { get; set; }
     [MaxLength(300)][Url] public string? InstagramUrl { get; set; }
     [MaxLength(300)][Url] public string? TikTokUrl { get; set; }

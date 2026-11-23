@@ -439,6 +439,26 @@ namespace Surgeon.Infrastructure.Persistence.Migraciones
                         .HasColumnType("text")
                         .HasColumnName("region");
 
+                    b.Property<bool>("ReservaClinicaActiva")
+                        .HasColumnType("boolean")
+                        .HasColumnName("reserva_clinica_activa");
+
+                    b.Property<string>("ReservaClinicaNombre")
+                        .HasColumnType("text")
+                        .HasColumnName("reserva_clinica_nombre");
+
+                    b.Property<string>("ReservaClinicaTelefono")
+                        .HasColumnType("text")
+                        .HasColumnName("reserva_clinica_telefono");
+
+                    b.Property<string>("ReservaClinicaTextoBusqueda")
+                        .HasColumnType("text")
+                        .HasColumnName("reserva_clinica_texto_busqueda");
+
+                    b.Property<string>("ReservaClinicaUrl")
+                        .HasColumnType("text")
+                        .HasColumnName("reserva_clinica_url");
+
                     b.Property<bool>("ReservasOnlineActivas")
                         .HasColumnType("boolean")
                         .HasColumnName("reservas_online_activas");
